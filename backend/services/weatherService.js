@@ -79,8 +79,14 @@ async function fetchWeatherData(
 ) {
 
   // Weather API
-  const weatherResponse = await axios.get(WEATHER_URL, {
+  let weatherResponse;
+
+try {
+
+  weatherResponse = await axios.get(WEATHER_URL, {
+
     params: {
+
       latitude,
       longitude,
 
@@ -103,13 +109,30 @@ async function fetchWeatherData(
       ].join(","),
 
       hourly: [
-  "temperature_2m",
-  "weather_code",
-].join(","),
+        "temperature_2m",
+        "weather_code",
+      ].join(","),
 
       timezone: "auto",
+
     },
+
   });
+
+}
+catch (err) {
+
+  console.log("❌ WEATHER API FAILED");
+
+  console.log("Status:", err.response?.status);
+
+  console.log("URL:", err.config?.url);
+
+  console.log("Response:", err.response?.data);
+
+  throw err;
+
+}
 
   // Air Quality API
   const airResponse = await axios.get(AIR_QUALITY_URL, {

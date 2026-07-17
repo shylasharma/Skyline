@@ -122,7 +122,7 @@ try {
 }
 catch (err) {
 
-  console.log("❌ WEATHER API FAILED");
+  
 
   console.log("Status:", err.response?.status);
 
